@@ -33,5 +33,6 @@ module AlexaRubykit
     def has_attributes?
       !@attributes.empty?
     end
+
   end
 end
