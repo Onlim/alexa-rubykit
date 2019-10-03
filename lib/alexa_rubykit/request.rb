@@ -35,7 +35,7 @@ module AlexaRubykit
       when /SessionEnded/
         @request = SessionEndedRequest.new(json_request)
       else
-        raise ArgumentError, "Invalid Request Type:"
+        raise ArgumentError, "Invalid Request Type: #{json_request['request']['type']}"
     end
     @request
   end
