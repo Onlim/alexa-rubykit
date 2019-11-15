@@ -2,7 +2,6 @@ require 'rspec'
 require 'alexa_rubykit'
 
 describe 'Request handling' do
-
   it 'should accept a proper alexa launch request object' do
     sample_request = JSON.parse(File.read('fixtures/LaunchRequest.json'))
     request = AlexaRubykit::build_request(sample_request)
@@ -42,6 +41,13 @@ describe 'Request handling' do
     expect(intent_request.reason).to eq('USER_INITIATED')
   end
 
+  xit 'should create a valid display element request type' do
+    sample_request = JSON.parse(File.read('fixtures/sample-DisplayElementRequest.json'))
+    intent_request = AlexaRubykit::build_request(sample_request)
+    expect(intent_request.type).to eq('DISPLAY_ELEMENT_REQUEST')
+    expect(intent_request.request_id).not_to be_empty
+  end
+
   it 'should create valid sessions with attributes' do
     sample_request = JSON.parse(File.read('fixtures/sample-IntentRequest.json'))
     intent_request = AlexaRubykit::build_request(sample_request)
@@ -50,7 +56,7 @@ describe 'Request handling' do
     expect(intent_request.session.user_defined?).to be_truthy
     expect(intent_request.session.attributes).not_to be_empty
   end
-  
+
   it 'transform_keys_to_symbols' do
     string_keys_hash = { "test1" => 'value', "test2" => { "test3" => 'value' } }
     symbol_keys_hash = { test1: 'value', test2: { test3: 'value' } }
