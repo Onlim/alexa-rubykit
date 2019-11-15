@@ -41,10 +41,10 @@ describe 'Request handling' do
     expect(intent_request.reason).to eq('USER_INITIATED')
   end
 
-  xit 'should create a valid display element request type' do
+  it 'should create a valid display element request type' do
     sample_request = JSON.parse(File.read('fixtures/sample-DisplayElementRequest.json'))
     intent_request = AlexaRubykit::build_request(sample_request)
-    expect(intent_request.type).to eq('DISPLAY_ELEMENT_REQUEST')
+    expect(intent_request.type).to eq('INTENT_REQUEST')
     expect(intent_request.request_id).not_to be_empty
   end
 

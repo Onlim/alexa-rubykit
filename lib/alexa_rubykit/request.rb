@@ -31,7 +31,7 @@ module AlexaRubykit
       when /Intent/
         @request = IntentRequest.new(json_request)
       when /Display.ElementSelected/
-        @request = DisplayelementRequest.new(json_request)
+        @request = DisplayElementRequest.new(json_request)
       when /SessionEnded/
         @request = SessionEndedRequest.new(json_request)
       else
