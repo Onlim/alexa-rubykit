@@ -23,8 +23,8 @@ module AlexaRubykit
       @session_attributes[key.to_sym] = value
     end
 
-    def add_speech(speech_text, ssml = false)
-      if ssml
+    def add_speech(speech_text)
+      if ssml?(speech_text)
         @speech = { :type => 'SSML', :ssml => check_ssml(speech_text) }
       else
         @speech = { :type => 'PlainText', :text => speech_text }
@@ -69,8 +69,8 @@ module AlexaRubykit
       @intents['slots'][name]['confirmationStatus'] = confirmation_status
     end
 
-    def add_reprompt(speech_text, ssml = false)
-      if ssml
+    def add_reprompt(speech_text)
+      if ssml?(speech_text)
         @reprompt = { "outputSpeech" => { :type => 'SSML', :ssml => check_ssml(speech_text) } }
       else
         @reprompt = { "outputSpeech" => { :type => 'PlainText', :text => speech_text } }
@@ -152,9 +152,15 @@ module AlexaRubykit
 
     private
 
+      def ssml?(string)
+        string.match(/<\/?[a-z][\s\S]*>/i)
+      end
+
       def check_ssml(ssml_string)
         ssml_string = ssml_string.strip[0..6] == "<speak>" ? ssml_string : "<speak>" + ssml_string
         ssml_string.strip[-8..1] == "</speak>" ? ssml_string : ssml_string + "</speak>"
+        ssml_string.delete!("\n")
+        ssml_string.squish
       end
   end
 end
