@@ -158,7 +158,7 @@ module AlexaRubykit
 
       def check_ssml(ssml_string)
         ssml_string = ssml_string.strip[0..6] == "<speak>" ? ssml_string : "<speak>" + ssml_string
-        ssml_string = ssml_string.strip[-8..1] == "</speak>" ? ssml_string : ssml_string + "</speak>"
+        ssml_string = ssml_string.strip[-8..-1] == "</speak>" ? ssml_string : ssml_string + "</speak>"
         ssml_string.delete!("\n")
         ssml_string.squish
       end
