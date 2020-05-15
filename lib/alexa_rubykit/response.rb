@@ -156,11 +156,11 @@ module AlexaRubykit
         string.match(/<\/?[a-z][\s\S]*>/i)
       end
 
-      def check_ssml(ssml_string)
-        ssml_string = ssml_string.strip[0..6] == "<speak>" ? ssml_string : "<speak>" + ssml_string
-        ssml_string = ssml_string.strip[-8..-1] == "</speak>" ? ssml_string : ssml_string + "</speak>"
-        ssml_string.delete!("\n")
-        ssml_string.squish
-      end
+    def check_ssml(ssml_string)
+      ssml_string = ssml_string.gsub(%r{</?speak>}, '')
+      ssml_string.delete!("\n")
+      ssml_string = "<speak>#{ssml_string}</speak>"
+      ssml_string.squish
+    end
   end
 end
